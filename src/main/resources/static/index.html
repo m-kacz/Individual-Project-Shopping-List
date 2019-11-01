@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
 <script src="list.js"></script>
+<link rel="stylesheet" type="text/css" href="list.css">
 <title>Shopping List App</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"></link>
+  <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">-->
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </head>
 <body onload="request()">
 	<nav class="navbar navbar-default">
@@ -56,7 +59,7 @@
 
 					<div class="form-group">
 						<span class="active">Hide purchased items</span> <input
-							type="checkbox" id="checkHide" onclick="request()">
+							type="checkbox" id="checkHide" class="toggle" onclick="request()">
 					</div>
 
 

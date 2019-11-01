@@ -84,6 +84,7 @@ function request() {
 								var a5 = newRow.insertCell(4);
 								var t5 = document.createElement('input');
 								t5.type = 'checkbox';
+								t5.className="toggle";
 
 								t5.checked = loop.purchased;
 								t5.onclick = function() {
@@ -133,10 +134,11 @@ function request() {
 								a5.appendChild(t5);
 
 								var a6 = newRow.insertCell(5);
-								var t6 = document.createElement('input');
-								t6.type = 'button';
+								var t6 = document.createElement('button');
 								t6.className = 'btn btn-primary w-100';
-								t6.value = "Update";
+								var t6a = document.createElement('span');
+								t6a.className = 'glyphicon glyphicon-refresh';
+								t6.appendChild(t6a);
 								t6.id = idEdi;
 								t6
 										.addEventListener(
@@ -191,12 +193,13 @@ function request() {
 
 												});
 								a6.appendChild(t6);
-
+								
 								var a8 = newRow.insertCell(6);
-								var t8 = document.createElement('input');
-								t8.type = 'button';
-								t8.className = 'btn btn-primary w-100';
-								t8.value = "Delete";
+								var t8 = document.createElement('button');
+								t8.className = 'btn btn-danger w-100';
+								var t8a = document.createElement('span');
+								t8a.className = 'glyphicon glyphicon-remove';
+								t8.appendChild(t8a);
 								t8.id = idDel;
 								t8
 										.addEventListener(
@@ -285,6 +288,7 @@ function request() {
 									var a5 = newRow.insertCell(4);
 									var t5 = document.createElement('input');
 									t5.type = 'checkbox';
+									t5.className="toggle";
 
 									t5.checked = loop.purchased;
 									t5.onclick = function() {
@@ -335,10 +339,11 @@ function request() {
 									a5.appendChild(t5);
 
 									var a6 = newRow.insertCell(5);
-									var t6 = document.createElement('input');
-									t6.type = 'button';
+									var t6 = document.createElement('button');
 									t6.className = 'btn btn-primary w-100';
-									t6.value = "Update";
+									var t6a = document.createElement('span');
+									t6a.className = 'glyphicon glyphicon-refresh';
+									t6.appendChild(t6a);				
 									t6.id = idEdi;
 									t6
 											.addEventListener(
@@ -399,10 +404,11 @@ function request() {
 									a6.appendChild(t6);
 
 									var a8 = newRow.insertCell(6);
-									var t8 = document.createElement('input');
-									t8.type = 'button';
-									t8.className = 'btn btn-primary w-100';
-									t8.value = "Delete";
+									var t8 = document.createElement('button');
+									t8.className = 'btn btn-danger w-100';
+									var t8a = document.createElement('span');
+									t8a.className = 'glyphicon glyphicon-remove';
+									t8.appendChild(t8a);
 									t8.id = idDel;
 									t8
 											.addEventListener(
@@ -502,15 +508,67 @@ function request() {
 				a3.appendChild(t3);
 
 				var a4 = newRow.insertCell(3);
-				var t4 = document.createElement('input');
-				t4.type = 'submit';
-				t4.value = "Add new item";
+				var t4 = document.createElement('submit');
+				//t4.type = 'submit';
+				var t4a = document.createElement('span');
+				t4a.className = 'glyphicon glyphicon-plus';
+				t4.appendChild(t4a);
+							
+				//t4.innerHTML = "Add new item";
 				t4.addEventListener('click', function() {
 					var item = newItem.value;
 					var quantity = newQuantity.value;
+					var qInt = parseFloat(quantity);
+					var numbers = /^[0-9.]+$/;
+					var numbers2 = /^[0-9]+$/;
 					var price = newPrice.value;
+					var pInt = parseFloat(price);
 					var total = newQuantity.value * newPrice.value;
 					var purchased = "false";
+					if(item == ""){
+						alert("Item name is missing!");
+						return false;
+					}
+					else if(item.length>30){
+						alert("Item name cannot be longer than 30 characters");
+						return false;
+					}
+					else if(quantity == ""){
+						alert("Quantity is missing!");
+						return false;
+					}
+					else if(!(quantity.match(numbers))){
+						alert("Numbers only!");
+						return false;
+					}
+					else if(qInt>999){
+						alert("The maximum quantity is 999");
+						return false;
+					}
+					else if(qInt<0){
+						alert("The minimum quantity is 1");
+						return false;
+					}
+					else if(!(quantity.match(numbers2))){
+						alert("Quantity must be a whole number!");
+						return false;
+					}
+					else if(price == ""){
+						alert("Price is missing!");
+						return false;
+					}
+					else if(price>999.99){
+						alert("The maximum price is £999.99!");
+						return false;
+					}
+					else if(price<=0.01){
+						alert("The minimum price is £0.01");
+						return false;
+					}
+					else if(!(price.match(numbers))){
+						alert("Numbers only!");
+						return false;
+					}
 					var addNew = new Object();
 					addNew.item = item;
 					addNew.quantity = quantity;
@@ -560,6 +618,7 @@ function request() {
 				t4.id = "newItemButton";
 				t4.className = 'btn btn-success w-100';
 				a4.appendChild(t4);
+
 
 			}
 		}
