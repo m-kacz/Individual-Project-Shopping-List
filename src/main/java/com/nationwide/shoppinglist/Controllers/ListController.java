@@ -12,47 +12,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nationwide.shoppinglist.Entity.List;
-import com.nationwide.shoppinglist.Interfaces.ListRepository;
+import com.nationwide.shoppinglist.Services.ListService;
 
 @RestController
 public class ListController {
 	@Autowired
-	private ListRepository repo;
+	private ListService service;
 	
 	@CrossOrigin
 	@GetMapping("/showall")
 	public ArrayList<List> showAll(){
-		return repo.findAll();
-	}
-	@GetMapping("/filterpurchased/{purchased}")
-	public ArrayList<List>filteringDepartments(@PathVariable boolean purchased){
-		return repo.findByPurchased(purchased);
+		return service.showAll();
 	}
 	
 	@CrossOrigin
 	@PostMapping("/save")
 	public String saveData(@RequestBody List Ref) {
-			repo.save(Ref);
+			service.saveData(Ref);
 			return "Data saved.";
 	}
 	
 	@CrossOrigin
 	@DeleteMapping("/deleteRecord/{R}")
 	public String deleteRecord(@PathVariable int R) {
-		repo.deleteById(R);
+		service.deleteRecord(R);
 		return "Record deleted";
 	}
 	
 	@CrossOrigin
 	@PutMapping("/updateItem")
 	public List updateItem(@RequestBody List updatedItem) {
-		List item2 = repo.findById(updatedItem.getId());
-		item2.setItem(updatedItem.getItem());
-		item2.setQuantity(updatedItem.getQuantity());
-		item2.setPrice(updatedItem.getPrice());
-		item2.setTotal(updatedItem.getTotal());
-		item2.setPurchased(updatedItem.isPurchased());
-		repo.flush();
+		List item2 = service.updateItem(updatedItem);
 		return item2;
 	}
 	
