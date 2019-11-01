@@ -3,7 +3,7 @@ function request() {
 		const Http = new XMLHttpRequest();
 		var start = 0;
 		var totalPrice = parseFloat(start);
-		var url = "http://location.hostname:9002/showall";
+		var url = "http://35.246.83.29:9002/showall";
 		Http.open("GET", url);
 		var id = 0;
 		Http.onreadystatechange = function(e) {
@@ -106,7 +106,7 @@ function request() {
 									$
 											.ajax({
 												type : "PUT",
-												url : "http://location.hostname:9002/updateItem",
+												url : "http://35.246.83.29:9002/updateItem",
 												contentType : "application/json",
 												data : updateJSON,
 												dataType : 'json',
@@ -159,7 +159,7 @@ function request() {
 													$
 															.ajax({
 																type : "PUT",
-																url : "http://location.hostname:9002/updateItem",
+																url : "http://35.246.83.29:9002/updateItem",
 																contentType : "application/json",
 																data : updateJSON,
 																dataType : 'json',
@@ -190,7 +190,7 @@ function request() {
 													Http3
 															.open(
 																	"DELETE",
-																	'http://location.hostname:9002/deleteRecord/'
+																	'http://35.246.83.29:9002/deleteRecord/'
 																			+ document
 																					.getElementById(idName).value);
 													Http3.setRequestHeader(
@@ -293,7 +293,7 @@ function request() {
 										$
 												.ajax({
 													type : "PUT",
-													url : "http://location.hostname:9002/updateItem",
+													url : "http://35.246.83.29:9002/updateItem",
 													contentType : "application/json",
 													data : updateJSON,
 													dataType : 'json',
@@ -350,7 +350,7 @@ function request() {
 														$
 																.ajax({
 																	type : "PUT",
-																	url : "http://location.hostname:9002/updateItem",
+																	url : "http://35.246.83.29:9002/updateItem",
 																	contentType : "application/json",
 																	data : updateJSON,
 																	dataType : 'json',
@@ -378,7 +378,7 @@ function request() {
 														Http3
 																.open(
 																		"DELETE",
-																		'http://location.hostname:9002/deleteRecord/'
+																		'http://35.246.83.29:9002/deleteRecord/'
 																				+ document
 																						.getElementById(idName).value);
 														Http3
@@ -535,7 +535,7 @@ function request() {
 
 					$.ajax({
 						type : "POST",
-						url : "http://location.hostname:9002/save",
+						url : "http://35.246.83.29:9002/save",
 						contentType : "application/json",
 						data : addNewJSON,
 						dataType : 'json',
