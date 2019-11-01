@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="list.js"></script>
+<title>Shopping List App</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="request()">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Shopping List App</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Tesco <span class="sr-only">(current)</span></a></li>
+					<!--<li><a href="#">Link</a></li>-->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">My lists <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Sainsburys</a></li>
+							<li><a href="#">Debenhams</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Add New List</a></li>
+						</ul></li>
+				</ul>
+				<!--<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>-->
+				<ul class="nav navbar-nav navbar-right">
+					<!--	<input type="button" value="Hide purchased" class="btn btn-default" id="hide" onclick="request('1')">
+					<input type="button" value="Show purchased" class="btn btn-default" id="hide" onclick="request('0')">-->
+
+					<div class="form-group">
+						<span class="active">Hide purchased items</span> <input
+							type="checkbox" id="checkHide" onclick="request()">
+					</div>
+
+
+
+				</ul>
+				<!--<ul class="nav navbar-nav navbar-right">
+					
+					
+					<li><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				</ul>-->
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<!--<input type="button" value="Send Request">-->
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Shopping list</div>
+
+		<!-- Table -->
+		<table class="table table-bordered" id="list1">
+			<tbody>
+				<tr>
+
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+</html>
