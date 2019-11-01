@@ -56,6 +56,5 @@ public class List {
 	}
 	public void setAttributes(List updatedItem) {
 		// TODO Auto-generated method stub
-		
 	}
 }
