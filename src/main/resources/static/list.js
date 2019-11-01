@@ -3,18 +3,15 @@ function request() {
 		const Http = new XMLHttpRequest();
 		var start = 0;
 		var totalPrice = parseFloat(start);
-		//console.log(checker);
-		var url = "http://localhost:9003/showall";
+		var url = "http://location.hostname:9002/showall";
 		Http.open("GET", url);
 		var id = 0;
-		//setTimeout(function(){},1000);
 		Http.onreadystatechange = function(e) {
 			if (Http.readyState == 4) {
 				console.log(JSON.parse(Http.responseText));
 				data = JSON.parse(Http.responseText);
 				$("#list1 tbody tr").remove();
-				var tableRef = document.getElementById('list1')
-						.getElementsByTagName('tbody')[0];
+				var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
 
 				var headerRow = list1.insertRow(0);
 				var cell = headerRow.insertCell(0);
@@ -34,16 +31,11 @@ function request() {
 				var cell8 = headerRow.insertCell(7);
 				cell8.innerHTML = "<b></b>";
 
-				data
-						.forEach(function(loop) {
+				data.forEach(function(loop) {
 							if (checkHide.checked == false) {
 
-								var tableRef = document.getElementById('list1')
-										.getElementsByTagName('tbody')[0];
-
-								// Insert a row in the table at row index 0
-								var newRow = tableRef
-										.insertRow(list1.rows.length);
+								var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
+								var newRow = tableRef.insertRow(list1.rows.length);
 								var idName = id + "n";
 								var idI = id + "i";
 								var idQ = id + "q";
@@ -114,20 +106,13 @@ function request() {
 									$
 											.ajax({
 												type : "PUT",
-												url : "http://localhost:9003/updateItem",
+												url : "http://location.hostname:9002/updateItem",
 												contentType : "application/json",
 												data : updateJSON,
 												dataType : 'json',
 												complete : function(data) {
 													request();
 												}
-											// success : function(dinosaur) {
-											// 	console.log(data);
-											// },
-											// error : function(dinosaur) {
-											// 	console.log(data);
-											// },
-
 											});
 								}
 								t5.id = idPur;
@@ -174,7 +159,7 @@ function request() {
 													$
 															.ajax({
 																type : "PUT",
-																url : "http://localhost:9003/updateItem",
+																url : "http://location.hostname:9002/updateItem",
 																contentType : "application/json",
 																data : updateJSON,
 																dataType : 'json',
@@ -182,15 +167,7 @@ function request() {
 																		data) {
 																	request();
 																}
-															// success : function(dinosaur) {
-															// 	console.log(data);
-															// },
-															// error : function(dinosaur) {
-															// 	console.log(data);
-															// },
-
 															});
-
 												});
 								a6.appendChild(t6);
 								
@@ -213,7 +190,7 @@ function request() {
 													Http3
 															.open(
 																	"DELETE",
-																	'http://localhost:9003/deleteRecord/'
+																	'http://location.hostname:9002/deleteRecord/'
 																			+ document
 																					.getElementById(idName).value);
 													Http3.setRequestHeader(
@@ -244,8 +221,6 @@ function request() {
 									var tableRef = document.getElementById(
 											'list1').getElementsByTagName(
 											'tbody')[0];
-
-									// Insert a row in the table at row index 0
 									var newRow = tableRef
 											.insertRow(list1.rows.length);
 									var idName = id + "n";
@@ -297,8 +272,7 @@ function request() {
 										console.log(t3.innerHTML);
 										console.log(t4.innerHTML);
 										console.log(t5.checked);
-										var id = document
-												.getElementById(idName).value;
+										var id = document.getElementById(idName).value;
 										var item = t1.innerHTML;
 										var quantity = t2.innerHTML;
 										var price = (t3.innerHTML).substr(1);
@@ -319,20 +293,13 @@ function request() {
 										$
 												.ajax({
 													type : "PUT",
-													url : "http://localhost:9003/updateItem",
+													url : "http://location.hostname:9002/updateItem",
 													contentType : "application/json",
 													data : updateJSON,
 													dataType : 'json',
 													complete : function(data) {
 														request();
 													}
-												// success : function(dinosaur) {
-												// 	console.log(data);
-												// },
-												// error : function(dinosaur) {
-												// 	console.log(data);
-												// },
-
 												});
 									}
 									t5.id = idPur;
@@ -383,7 +350,7 @@ function request() {
 														$
 																.ajax({
 																	type : "PUT",
-																	url : "http://localhost:9003/updateItem",
+																	url : "http://location.hostname:9002/updateItem",
 																	contentType : "application/json",
 																	data : updateJSON,
 																	dataType : 'json',
@@ -391,13 +358,6 @@ function request() {
 																			data) {
 																		request();
 																	}
-																// success : function(dinosaur) {
-																// 	console.log(data);
-																// },
-																// error : function(dinosaur) {
-																// 	console.log(data);
-																// },
-
 																});
 
 													});
@@ -414,12 +374,11 @@ function request() {
 											.addEventListener(
 													'click',
 													function() {
-														//console.log("pressed"+document.getElementById(idName).value);
 														var Http3 = new XMLHttpRequest();
 														Http3
 																.open(
 																		"DELETE",
-																		'http://localhost:9003/deleteRecord/'
+																		'http://location.hostname:9002/deleteRecord/'
 																				+ document
 																						.getElementById(idName).value);
 														Http3
@@ -481,11 +440,7 @@ function request() {
 
 				var newRow = list1.insertRow();
 				newRow.id = "myTr";
-
-				// var textbox = document.createElement('input');
-				// textbox.type = 'text';
-				// document.getElementById('theForm').appendChild(textbox);
-
+				
 				var a1 = newRow.insertCell(0);
 				var t1 = document.createElement('input');
 				t1.type = 'text';
@@ -580,46 +535,18 @@ function request() {
 
 					$.ajax({
 						type : "POST",
-						url : "http://localhost:9003/save",
+						url : "http://location.hostname:9002/save",
 						contentType : "application/json",
 						data : addNewJSON,
 						dataType : 'json',
-						//success : function(dinosaur) {
-						//	console.log(data);
-						//},
-						//error : function(dinosaur) {
-						//	console.log(data);
-						//},
 						complete : function(data) {
 							request();
 						}
-
 					});
-
-					//  		console.log(newItem.value);
-					//  		console.log(newQuantity.value);
-					//  		console.log(newPrice.value);
-					//  		var newTotal = newQuantity.value * newPrice.value;
-					//  		console.log(newTotal);
-
-					//  		const Http2 = new XMLHttpRequest();
-					// 	Http2.open("post", "http://localhost:8080/save");
-
-					// 	Http2.onreadystatechange = function(e){
-
-					// 	}
-					// 	var obj = {item: newItem.value, quantity: newQuantity.value, price: newPrice.value, total: newTotal, purchased: false};
-					// 	var myJSON = JSON.stringify(obj);
-					// 	console.log(myJSON);
-					// 	Http2.send("["+myJSON+"]");
-
 				});
-
 				t4.id = "newItemButton";
 				t4.className = 'btn btn-success w-100';
 				a4.appendChild(t4);
-
-
 			}
 		}
 		Http.send();
