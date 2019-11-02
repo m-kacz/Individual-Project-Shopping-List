@@ -843,7 +843,7 @@ function request() {
 	var start = 0;
 	var totalPrice = parseFloat(start);
 	// var url = "http://35.246.83.29:9002/showall";
-	var url = "http://35.246.83.29:9002/showall";
+	var url = "http://localhost:9002/showall";
 	Http.open("GET", url);
 	var id = 0;
 	Http.onreadystatechange = function(e) {
@@ -878,13 +878,13 @@ function request() {
 			cell7.innerHTML = "<b></b>";
 			// var cell8 = headerRow.insertCell(7);
 			// cell8.innerHTML = "<b></b>";
-			// cell.className ="body";
-			// cell2.className ="body";
-			// cell3.className ="body";
-			// cell4.className ="body";
-			// cell5.className ="body";
-			// cell6.className ="body";
-			// cell7.className ="body";
+			cell.className ="title";
+			cell2.className ="title";
+			cell3.className ="title";
+			cell4.className ="title";
+			cell5.className ="title";
+			cell6.className ="title";
+			cell7.className ="title";
 			// cell8.className ="body";
 
 			data
@@ -909,6 +909,12 @@ function request() {
 
 							var a1 = newRow.insertCell(0);
 							var t1 = document.createElement("span");
+							if(id % 2 == "0"){
+								a1.className ="body";
+							}
+							else{
+								a1.className ="body2";
+							}
 							// a1.className ="body";
 							t1.innerHTML = loop.item;
 							t1.contentEditable = true;
@@ -916,6 +922,12 @@ function request() {
 
 							var a2 = newRow.insertCell(1);
 							var t2 = document.createElement("span");
+							if(id % 2 == "0"){
+								a2.className ="body";
+							}
+							else{
+								a2.className ="body2";
+							}
 							// a2.className ="body";
 							t2.innerHTML = loop.quantity;
 							t2.contentEditable = true;
@@ -923,6 +935,12 @@ function request() {
 
 							var a3 = newRow.insertCell(2);
 							var t3 = document.createElement("span");
+							if(id % 2 == "0"){
+								a3.className ="body";
+							}
+							else{
+								a3.className ="body2";
+							}
 							// a3.className ="body";
 							t3.innerHTML = "£" + loop.price;
 							t3.contentEditable = true;
@@ -930,6 +948,12 @@ function request() {
 
 							var a4 = newRow.insertCell(3);
 							var t4 = document.createElement("span");
+							if(id % 2 == "0"){
+								a4.className ="body";
+							}
+							else{
+								a4.className ="body2";
+							}
 							// a4.className ="body";
 							t4.innerHTML = "£" + loop.total;
 							t4.contentEditable = false;
@@ -937,6 +961,12 @@ function request() {
 
 							var a5 = newRow.insertCell(4);
 							var t5 = document.createElement('input');
+							if(id % 2 == "0"){
+								a5.className ="body";
+							}
+							else{
+								a5.className ="body2";
+							}
 							// a5.className ="body";
 							t5.style.textAlign = "center";
 							t5.type = 'checkbox';
@@ -968,7 +998,7 @@ function request() {
 								var updateJSON = JSON.stringify(updatedItem);
 								$.ajax({
 									type : "PUT",
-									url : "http://35.246.83.29:9002/updateItem",
+									url : "http://localhost:9002/updateItem",
 									contentType : "application/json",
 									data : updateJSON,
 									dataType : 'json',
@@ -981,6 +1011,12 @@ function request() {
 							a5.appendChild(t5);
 
 							var a6 = newRow.insertCell(5);
+							if(id % 2 == "0"){
+								a6.className ="body";
+							}
+							else{
+								a6.className ="body2";
+							}
 							// a6.className ="body";
 							var t6 = document.createElement('button');
 							t6.className = 'btn btn-primary w-100';
@@ -997,23 +1033,70 @@ function request() {
 								var id = document.getElementById(idName).value;
 								var item = t1.innerHTML;
 								var quantity = t2.innerHTML;
-								var price = (t3.innerHTML).substr(1);
+								if((t3.innerHTML).substr(0,1)=="£"){
+									var price = (t3.innerHTML).substr(1);
+								}
+								else{
+									var price = t3.innerHTML;
+								}
 								var total = (t4.innerHTML).substr(1);
 								var newTot = quantity * price;
 								console.log(price);
 								console.log(total);
 								var purchased = t5.checked;
+								
+								var qInt = parseFloat(quantity);
+								var numbers = /^[0-9.]+$/;
+								var numbers2 = /^[0-9]+$/;
+								var pInt = parseFloat(price);
+								if (item == "") {
+									alert("Item name is missing!");
+									return false;
+								} else if (item.length > 30) {
+									alert("Item name cannot be longer than 30 characters");
+									return false;
+								} else if (quantity == "") {
+									alert("Quantity is missing!");
+									return false;
+								} else if (!(quantity.match(numbers))) {
+									alert("Numbers only!");
+									return false;
+								} else if (qInt > 100) {
+									alert("The maximum quantity is 100");
+									return false;
+								} else if (qInt < 0) {
+									alert("The minimum quantity is 1");
+									return false;
+								} else if (!(quantity.match(numbers2))) {
+									alert("Quantity must be a whole number!");
+									return false;
+								} else if (price == "") {
+									alert("Price is missing!");
+									return false;
+								} else if (price > 999.99) {
+									alert("The maximum price is £999.99!");
+									return false;
+								} else if (price < 0.01) {
+									alert("The minimum price is £0.01");
+									return false;
+								} else if (!(price.match(numbers))) {
+									alert("Numbers only!");
+									return false;
+								}
+								
 								var updatedItem = new Object();
 								updatedItem.id = id;
 								updatedItem.item = item;
 								updatedItem.quantity = quantity;
 								updatedItem.price = price;
 								updatedItem.total = newTot;
+								
+							
 								updatedItem.purchased = purchased;
 								var updateJSON = JSON.stringify(updatedItem);
 								$.ajax({
 									type : "PUT",
-									url : "http://35.246.83.29:9002/updateItem",
+									url : "http://localhost:9002/updateItem",
 									contentType : "application/json",
 									data : updateJSON,
 									dataType : 'json',
@@ -1048,7 +1131,7 @@ function request() {
 												Http3
 														.open(
 																"DELETE",
-																'http://35.246.83.29:9002/deleteRecord/'
+																'http://localhost:9002/deleteRecord/'
 																		+ document
 																				.getElementById(idName).value);
 												Http3.setRequestHeader(
@@ -1062,6 +1145,12 @@ function request() {
 											});
 							a6.appendChild(t8);
 							var a7 = newRow.insertCell(6);
+							if(id % 2 == "0"){
+								a7.className ="body";
+							}
+							else{
+								a7.className ="body2";
+							}
 							// a7.className ="body";
 							var t7 = document.createElement('input');
 							t7.type = 'text';
@@ -1078,201 +1167,278 @@ function request() {
 
 							if (loop.purchased == false) {
 								var tableRef = document.getElementById('list1')
-										.getElementsByTagName('tbody')[0];
-								var newRow = tableRef
-										.insertRow(list1.rows.length);
-								var idName = id + "n";
-								var idI = id + "i";
-								var idQ = id + "q";
-								var idP = id + "p";
-								var idT = id + "t";
-								var idPur = id + "pur";
-								var idChe = id + "c";
-								var idEdi = id;
-								var idDel = id + "1";
+								.getElementsByTagName('tbody')[0];
+						var newRow = tableRef.insertRow(list1.rows.length);
+						var idName = id + "n";
+						var idI = id + "i";
+						var idQ = id + "q";
+						var idP = id + "p";
+						var idT = id + "t";
+						var idPur = id + "pur";
+						var idChe = id + "c";
+						var idEdi = id;
+						var idDel = id + "1";
 
-								var newRow = list1.insertRow();
-								newRow.id = "myTr";
+						var newRow = list1.insertRow();
+						newRow.id = "myTr";
 
-								var a1 = newRow.insertCell(0);
-								var t1 = document.createElement("span");
-								// a1.className ="body";
-								t1.innerHTML = loop.item;
-								t1.contentEditable = true;
-								a1.appendChild(t1);
+						var a1 = newRow.insertCell(0);
+						var t1 = document.createElement("span");
+						if(id % 2 == "0"){
+							a1.className ="body";
+						}
+						else{
+							a1.className ="body2";
+						}
+						// a1.className ="body";
+						t1.innerHTML = loop.item;
+						t1.contentEditable = true;
+						a1.appendChild(t1);
 
-								var a2 = newRow.insertCell(1);
-								var t2 = document.createElement("span");
-								// a2.className ="body";
-								t2.innerHTML = loop.quantity;
-								t2.contentEditable = true;
-								a2.appendChild(t2);
+						var a2 = newRow.insertCell(1);
+						var t2 = document.createElement("span");
+						if(id % 2 == "0"){
+							a2.className ="body";
+						}
+						else{
+							a2.className ="body2";
+						}
+						// a2.className ="body";
+						t2.innerHTML = loop.quantity;
+						t2.contentEditable = true;
+						a2.appendChild(t2);
 
-								var a3 = newRow.insertCell(2);
-								var t3 = document.createElement("span");
-								// a3.className ="body";
-								t3.innerHTML = "£" + loop.price;
-								t3.contentEditable = true;
-								a3.appendChild(t3);
+						var a3 = newRow.insertCell(2);
+						var t3 = document.createElement("span");
+						if(id % 2 == "0"){
+							a3.className ="body";
+						}
+						else{
+							a3.className ="body2";
+						}
+						// a3.className ="body";
+						t3.innerHTML = "£" + loop.price;
+						t3.contentEditable = true;
+						a3.appendChild(t3);
 
-								var a4 = newRow.insertCell(3);
-								var t4 = document.createElement("span");
-								// a4.className ="body";
-								t4.innerHTML = "£" + loop.total;
-								t4.contentEditable = false;
-								a4.appendChild(t4);
+						var a4 = newRow.insertCell(3);
+						var t4 = document.createElement("span");
+						if(id % 2 == "0"){
+							a4.className ="body";
+						}
+						else{
+							a4.className ="body2";
+						}
+						// a4.className ="body";
+						t4.innerHTML = "£" + loop.total;
+						t4.contentEditable = false;
+						a4.appendChild(t4);
 
-								var a5 = newRow.insertCell(4);
-								var t5 = document.createElement('input');
-								// a5.className ="body";
-								t5.style.textAlign = "center";
-								t5.type = 'checkbox';
-								t5.className = "toggle";
+						var a5 = newRow.insertCell(4);
+						var t5 = document.createElement('input');
+						if(id % 2 == "0"){
+							a5.className ="body";
+						}
+						else{
+							a5.className ="body2";
+						}
+						// a5.className ="body";
+						t5.style.textAlign = "center";
+						t5.type = 'checkbox';
+						t5.className = "toggle";
 
-								t5.checked = loop.purchased;
-								t5.onclick = function() {
-									console.log(t1.innerHTML);
-									console.log(t2.innerHTML);
-									console.log(t3.innerHTML);
-									console.log(t4.innerHTML);
-									console.log(t5.checked);
-									var id = document.getElementById(idName).value;
-									var item = t1.innerHTML;
-									var quantity = t2.innerHTML;
-									var price = (t3.innerHTML).substr(1);
-									var total = (t4.innerHTML).substr(1);
-									var newTot = quantity * price;
-									console.log(price);
-									console.log(total);
-									var purchased = t5.checked;
-									var updatedItem = new Object();
-									updatedItem.id = id;
-									updatedItem.item = item;
-									updatedItem.quantity = quantity;
-									updatedItem.price = price;
-									updatedItem.total = newTot;
-									updatedItem.purchased = purchased;
-									var updateJSON = JSON
-											.stringify(updatedItem);
-									$
-											.ajax({
-												type : "PUT",
-												url : "http://35.246.83.29:9002/updateItem",
-												contentType : "application/json",
-												data : updateJSON,
-												dataType : 'json',
-												complete : function(data) {
-													request();
-												}
-											});
+						t5.checked = loop.purchased;
+						t5.onclick = function() {
+							console.log(t1.innerHTML);
+							console.log(t2.innerHTML);
+							console.log(t3.innerHTML);
+							console.log(t4.innerHTML);
+							console.log(t5.checked);
+							var id = document.getElementById(idName).value;
+							var item = t1.innerHTML;
+							var quantity = t2.innerHTML;
+							var price = (t3.innerHTML).substr(1);
+							var total = (t4.innerHTML).substr(1);
+							var newTot = quantity * price;
+							console.log(price);
+							console.log(total);
+							var purchased = t5.checked;
+							var updatedItem = new Object();
+							updatedItem.id = id;
+							updatedItem.item = item;
+							updatedItem.quantity = quantity;
+							updatedItem.price = price;
+							updatedItem.total = newTot;
+							updatedItem.purchased = purchased;
+							var updateJSON = JSON.stringify(updatedItem);
+							$.ajax({
+								type : "PUT",
+								url : "http://localhost:9002/updateItem",
+								contentType : "application/json",
+								data : updateJSON,
+								dataType : 'json',
+								complete : function(data) {
+									request();
 								}
-								t5.id = idPur;
-								a5.appendChild(t5);
+							});
+						}
+						t5.id = idPur;
+						a5.appendChild(t5);
 
-								var a6 = newRow.insertCell(5);
-								// a6.className ="body";
-								var t6 = document.createElement('button');
-								t6.className = 'btn btn-primary w-100';
-								var t6a = document.createElement('span');
-								t6a.className = 'glyphicon glyphicon-refresh';
-								t6.appendChild(t6a);
-								t6.id = idEdi;
-								t6
-										.addEventListener(
-												'click',
-												function() {
-													console.log(t1.innerHTML);
-													console.log(t2.innerHTML);
-													console.log(t3.innerHTML);
-													console.log(t4.innerHTML);
-													console.log(t5.checked);
-													var id = document
-															.getElementById(idName).value;
-													var item = t1.innerHTML;
-													var quantity = t2.innerHTML;
-													var price = (t3.innerHTML)
-															.substr(1);
-													var total = (t4.innerHTML)
-															.substr(1);
-													var newTot = quantity
-															* price;
-													console.log(price);
-													console.log(total);
-													var purchased = t5.checked;
-													var updatedItem = new Object();
-													updatedItem.id = id;
-													updatedItem.item = item;
-													updatedItem.quantity = quantity;
-													updatedItem.price = price;
-													updatedItem.total = newTot;
-													updatedItem.purchased = purchased;
-													var updateJSON = JSON
-															.stringify(updatedItem);
-													$
-															.ajax({
-																type : "PUT",
-																url : "http://35.246.83.29:9002/updateItem",
-																contentType : "application/json",
-																data : updateJSON,
-																dataType : 'json',
-																complete : function(
-																		data) {
-																	request();
-																}
-															});
-												});
-								a6.appendChild(t6);
+						var a6 = newRow.insertCell(5);
+						if(id % 2 == "0"){
+							a6.className ="body";
+						}
+						else{
+							a6.className ="body2";
+						}
+						// a6.className ="body";
+						var t6 = document.createElement('button');
+						t6.className = 'btn btn-primary w-100';
+						var t6a = document.createElement('span');
+						t6a.className = 'glyphicon glyphicon-refresh';
+						t6.appendChild(t6a);
+						t6.id = idEdi;
+						t6.addEventListener('click', function() {
+							console.log(t1.innerHTML);
+							console.log(t2.innerHTML);
+							console.log(t3.innerHTML);
+							console.log(t4.innerHTML);
+							console.log(t5.checked);
+							var id = document.getElementById(idName).value;
+							var item = t1.innerHTML;
+							var quantity = t2.innerHTML;
+							if((t3.innerHTML).substr(0,1)=="£"){
+								var price = (t3.innerHTML).substr(1);
+							}
+							else{
+								var price = t3.innerHTML;
+							}
+							var total = (t4.innerHTML).substr(1);
+							var newTot = quantity * price;
+							console.log(price);
+							console.log(total);
+							var purchased = t5.checked;
+							
+							var qInt = parseFloat(quantity);
+							var numbers = /^[0-9.]+$/;
+							var numbers2 = /^[0-9]+$/;
+							var pInt = parseFloat(price);
+							if (item == "") {
+								alert("Item name is missing!");
+								return false;
+							} else if (item.length > 30) {
+								alert("Item name cannot be longer than 30 characters");
+								return false;
+							} else if (quantity == "") {
+								alert("Quantity is missing!");
+								return false;
+							} else if (!(quantity.match(numbers))) {
+								alert("Numbers only!");
+								return false;
+							} else if (qInt > 100) {
+								alert("The maximum quantity is 100");
+								return false;
+							} else if (qInt < 0) {
+								alert("The minimum quantity is 1");
+								return false;
+							} else if (!(quantity.match(numbers2))) {
+								alert("Quantity must be a whole number!");
+								return false;
+							} else if (price == "") {
+								alert("Price is missing!");
+								return false;
+							} else if (price > 999.99) {
+								alert("The maximum price is £999.99!");
+								return false;
+							} else if (price < 0.01) {
+								alert("The minimum price is £0.01");
+								return false;
+							} else if (!(price.match(numbers))) {
+								alert("Numbers only!");
+								return false;
+							}
+							
+							var updatedItem = new Object();
+							updatedItem.id = id;
+							updatedItem.item = item;
+							updatedItem.quantity = quantity;
+							updatedItem.price = price;
+							updatedItem.total = newTot;
+							
+						
+							updatedItem.purchased = purchased;
+							var updateJSON = JSON.stringify(updatedItem);
+							$.ajax({
+								type : "PUT",
+								url : "http://localhost:9002/updateItem",
+								contentType : "application/json",
+								data : updateJSON,
+								dataType : 'json',
+								complete : function(data) {
+									request();
+								}
+							});
+						});
+						a6.appendChild(t6);
 
-								// var a8 = newRow.insertCell(6);
-								var t7a = document.createElement('span');
-								t7a.innerHTML = "    ";
-								a6.appendChild(t7a);
+						// var a8 = newRow.insertCell(6);
+						var t7a = document.createElement('span');
+						t7a.innerHTML = "    ";
+						a6.appendChild(t7a);
 
-								var t8 = document.createElement('button');
-								// a8.className ="body";
-								t8.className = 'btn btn-danger w-100';
-								var t8a = document.createElement('span');
-								t8a.className = 'glyphicon glyphicon-remove';
-								t8.appendChild(t8a);
-								t8.id = idDel;
-								t8
-										.addEventListener(
-												'click',
-												function() {
-													console
-															.log("pressed"
+						var t8 = document.createElement('button');
+						// a8.className ="body";
+						t8.className = 'btn btn-danger w-100';
+						var t8a = document.createElement('span');
+						t8a.className = 'glyphicon glyphicon-remove';
+						t8.appendChild(t8a);
+						t8.id = idDel;
+						t8
+								.addEventListener(
+										'click',
+										function() {
+											console
+													.log("pressed"
+															+ document
+																	.getElementById(idName).value);
+											var Http3 = new XMLHttpRequest();
+											Http3
+													.open(
+															"DELETE",
+															'http://localhost:9002/deleteRecord/'
 																	+ document
 																			.getElementById(idName).value);
-													var Http3 = new XMLHttpRequest();
-													Http3
-															.open(
-																	"DELETE",
-																	'http://35.246.83.29:9002/deleteRecord/'
-																			+ document
-																					.getElementById(idName).value);
-													Http3.setRequestHeader(
-															"Content-Type",
-															"application/json");
-													Http3.onload = function() {
-														request();
-													}
-													Http3.send();
-													return false;
-												});
-								a6.appendChild(t8);
-								var a7 = newRow.insertCell(6);
-								// a7.className ="body";
-								var t7 = document.createElement('input');
-								t7.type = 'text';
-								t7.value = loop.id;
-								t7.id = idName;
-								t7.style.display = "none";
-								a7.appendChild(t7);
+											Http3.setRequestHeader(
+													"Content-Type",
+													"application/json");
+											Http3.onload = function() {
+												request();
+											}
+											Http3.send();
+											return false;
+										});
+						a6.appendChild(t8);
+						var a7 = newRow.insertCell(6);
+						if(id % 2 == "0"){
+							a7.className ="body";
+						}
+						else{
+							a7.className ="body2";
+						}
+						// a7.className ="body";
+						var t7 = document.createElement('input');
+						t7.type = 'text';
+						t7.value = loop.id;
+						t7.id = idName;
+						t7.style.display = "none";
+						a7.appendChild(t7);
 
-								var t4total = parseFloat(loop.total);
-								totalPrice = totalPrice + t4total;
-								id = id + 1;
-								console.log("id=" + id);
+						var t4total = parseFloat(loop.total);
+						totalPrice = totalPrice + t4total;
+						id = id + 1;
+						console.log("id=" + id);
+					
 							}
 						}
 					});
@@ -1281,30 +1447,37 @@ function request() {
 
 			var a1 = newRow0.insertCell(0);
 			var t1 = document.createTextNode("");
+			a1.className ="title";
 			a1.appendChild(t1);
 
 			var a2 = newRow0.insertCell(1);
 			var t2 = document.createTextNode("");
+			a2.className ="title";
 			a2.appendChild(t2);
 
 			var a3 = newRow0.insertCell(2);
 			var t3 = document.createTextNode("Total:");
+			a3.className ="title";
 			a3.appendChild(t3);
 
 			var a4 = newRow0.insertCell(3);
 			var t4 = document.createTextNode("£" + totalPrice);
+			a4.className ="title";
 			a4.appendChild(t4);
 
 			var a5 = newRow0.insertCell(4);
 			var t5 = document.createTextNode("");
+			a5.className ="title";
 			a5.appendChild(t5);
 
 			var a6 = newRow0.insertCell(5);
 			var t6 = document.createTextNode("");
+			a6.className ="title";
 			a6.appendChild(t6);
 
 			var a7 = newRow0.insertCell(6);
 			var t7 = document.createTextNode("");
+			a7.className ="title";
 			a7.appendChild(t7);
 
 			var newRow = list1.insertRow();
@@ -1316,6 +1489,7 @@ function request() {
 			t1.className = "form-control";
 			t1.placeholder = "Enter New Item";
 			t1.id = "newItem";
+			a1.className ="title2";
 			a1.appendChild(t1);
 
 			var a2 = newRow.insertCell(1);
@@ -1324,6 +1498,7 @@ function request() {
 			t2.className = "form-control";
 			t2.placeholder = "Enter Quantity";
 			t2.id = "newQuantity";
+			a2.className ="title2";
 			a2.appendChild(t2);
 
 			var a3 = newRow.insertCell(2);
@@ -1332,6 +1507,7 @@ function request() {
 			t3.className = "form-control";
 			t3.placeholder = "Enter Price";
 			t3.id = "newPrice";
+			a3.className ="title2";
 			a3.appendChild(t3);
 
 			var a4 = newRow.insertCell(3);
@@ -1339,6 +1515,7 @@ function request() {
 			// t4.type = 'submit';
 			var t4a = document.createElement('span');
 			t4a.className = 'glyphicon glyphicon-plus';
+			a4.className ="title2";
 			t4.appendChild(t4a);
 
 			// t4.innerHTML = "Add new item";
@@ -1364,8 +1541,8 @@ function request() {
 				} else if (!(quantity.match(numbers))) {
 					alert("Numbers only!");
 					return false;
-				} else if (qInt > 999) {
-					alert("The maximum quantity is 999");
+				} else if (qInt > 100) {
+					alert("The maximum quantity is 100");
 					return false;
 				} else if (qInt < 0) {
 					alert("The minimum quantity is 1");
@@ -1379,7 +1556,7 @@ function request() {
 				} else if (price > 999.99) {
 					alert("The maximum price is £999.99!");
 					return false;
-				} else if (price <= 0.01) {
+				} else if (price < 0.01) {
 					alert("The minimum price is £0.01");
 					return false;
 				} else if (!(price.match(numbers))) {
@@ -1397,7 +1574,7 @@ function request() {
 
 				$.ajax({
 					type : "POST",
-					url : "http://35.246.83.29:9002/save",
+					url : "http://localhost:9002/save",
 					contentType : "application/json",
 					data : addNewJSON,
 					dataType : 'json',
@@ -1409,6 +1586,21 @@ function request() {
 			t4.id = "newItemButton";
 			t4.className = 'btn btn-success w-100';
 			a4.appendChild(t4);
+			
+			var a5 = newRow.insertCell(4);
+			var t5 = document.createTextNode("");
+			a5.className ="title2";
+			a5.appendChild(t5);
+
+			var a6 = newRow.insertCell(5);
+			var t6 = document.createTextNode("");
+			a6.className ="title2";
+			a6.appendChild(t6);
+
+			var a7 = newRow.insertCell(6);
+			var t7 = document.createTextNode("");
+			a7.className ="title2";
+			a7.appendChild(t7);
 		}
 	}
 	Http.send();

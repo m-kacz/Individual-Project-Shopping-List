@@ -181,8 +181,18 @@ table tfoot tr td {
 
 
 .body {
-  background-color: lightblue;
+  background-color: #D6EAF8;
 }
+.body2 {
+  background-color: #EBF5FB;
+}
+.title {
+  background-color: #AED6F1;
+}
+.title2 {
+  background-color: #85C1E9;
+}
+
 .toggle {
   -webkit-appearance: none;
   -moz-appearance: none;
