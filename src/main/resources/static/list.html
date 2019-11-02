@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="list.css">
 <script language="JavaScript" type="text/javascript" src="jquery-3.4.1.min.js"></script>
 <script src="list.js"></script>
+<script>
+$(window).on('load resize', function () {
+	  if ($(this).width() < 640) {
+	    $('table tfoot').hide();
+	  } else {
+	    $('table tfoot').show();
+	  }  
+	}); 
+</script>
+<link rel="stylesheet" type="text/css" href="list.css">
 <title>Shopping List App</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +25,7 @@
 <!-- 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">-->
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </head>
-<body>
+<body onload="request()">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -45,6 +54,7 @@
 							<li role="separator" class="divider"></li>
 							<li><a href="#" onclick="newList()">Add New List</a></li>
 						</ul></li>
+						<li class="active"><a href="#">My First Shopping List <span class="sr-only">(current)</span></a></li>
 				</ul>
 				<!--<form class="navbar-form navbar-left">
 					<div class="form-group">
@@ -56,6 +66,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<!--	<input type="button" value="Hide purchased" class="btn btn-default" id="hide" onclick="request('1')">
 					<input type="button" value="Show purchased" class="btn btn-default" id="hide" onclick="request('0')">-->
+
+					<div class="form-group">
+						<span class="active">Hide purchased items</span> <input
+							type="checkbox" id="checkHide" class="toggle" onclick="request()">
+					</div>
 
 
 
@@ -80,34 +95,39 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
-<div class="jumbotron text-center">
-  <h1>Welcome to Shopping List App!</h1>
-  <p>This is a web app designed to make your life better.</p> 
-  
-</div>
-  
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <h3>Fast and simple to use</h3>
-      <p>Shopping List App has been designed from the ground up to be user-friendly.</p>
-      <p>The app allows you to add, edit and remove items from your list through an intuitive interface.</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Find what you need</h3>
-      <p>Simplify your list by hiding the items you've already purchased.</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Easily manage your spending limits</h3>        
-      <p>Shopping List App allows you to see the total price of the items in your list allowing you to keep track of your spending.</p>
-    </div>
-  </div>
-</div>
+
 	<!--<input type="button" value="Send Request">-->
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
-		<div class="panel-heading text-center"><h4>Get started today by clicking "My Lists" at the top of the page!</h4></div>
-	</div>
+		<div class="panel-heading">My First Shopping List</div>
+
+		<!-- Table -->
+		<!-- <table class="table table-bordered" id="list1">
+			<tbody>
+				<tr>
+
+				</tr>
+			</tbody>
+		</table>
+		</div>-->
+		
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <table id="list1" class="table table-striped table-hover tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+
+        <tbody>
+          <tr>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+	
 
 </body>
 </html>
