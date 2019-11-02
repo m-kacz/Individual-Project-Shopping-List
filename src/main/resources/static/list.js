@@ -3,7 +3,8 @@ function request() {
 		const Http = new XMLHttpRequest();
 		var start = 0;
 		var totalPrice = parseFloat(start);
-		var url = "http://35.246.83.29:9002/showall";
+		//var url = "http://35.246.83.29:9002/showall";
+		var url = "http://localhost:9002/showall";
 		Http.open("GET", url);
 		var id = 0;
 		Http.onreadystatechange = function(e) {
@@ -28,8 +29,16 @@ function request() {
 				cell6.innerHTML = "<b></b>";
 				var cell7 = headerRow.insertCell(6);
 				cell7.innerHTML = "<b></b>";
-				var cell8 = headerRow.insertCell(7);
-				cell8.innerHTML = "<b></b>";
+				//var cell8 = headerRow.insertCell(7);
+				//cell8.innerHTML = "<b></b>";
+				//cell.className ="body";
+				//cell2.className ="body";
+				//cell3.className ="body";
+				//cell4.className ="body";
+				//cell5.className ="body";
+				//cell6.className ="body";
+				//cell7.className ="body";
+				//cell8.className ="body";
 
 				data.forEach(function(loop) {
 							if (checkHide.checked == false) {
@@ -51,30 +60,35 @@ function request() {
 
 								var a1 = newRow.insertCell(0);
 								var t1 = document.createElement("span");
+								//a1.className ="body";
 								t1.innerHTML = loop.item;
 								t1.contentEditable = true;
 								a1.appendChild(t1);
 
 								var a2 = newRow.insertCell(1);
 								var t2 = document.createElement("span");
+								//a2.className ="body";
 								t2.innerHTML = loop.quantity;
 								t2.contentEditable = true;
 								a2.appendChild(t2);
 
 								var a3 = newRow.insertCell(2);
 								var t3 = document.createElement("span");
+								//a3.className ="body";
 								t3.innerHTML = "£" + loop.price;
 								t3.contentEditable = true;
 								a3.appendChild(t3);
 
 								var a4 = newRow.insertCell(3);
 								var t4 = document.createElement("span");
+								//a4.className ="body";
 								t4.innerHTML = "£" + loop.total;
 								t4.contentEditable = false;
 								a4.appendChild(t4);
 
 								var a5 = newRow.insertCell(4);
 								var t5 = document.createElement('input');
+								//a5.className ="body";
 								t5.type = 'checkbox';
 								t5.className="toggle";
 
@@ -106,7 +120,7 @@ function request() {
 									$
 											.ajax({
 												type : "PUT",
-												url : "http://35.246.83.29:9002/updateItem",
+												url : "http://localhost:9002/updateItem",
 												contentType : "application/json",
 												data : updateJSON,
 												dataType : 'json',
@@ -119,6 +133,7 @@ function request() {
 								a5.appendChild(t5);
 
 								var a6 = newRow.insertCell(5);
+								//a6.className ="body";
 								var t6 = document.createElement('button');
 								t6.className = 'btn btn-primary w-100';
 								var t6a = document.createElement('span');
@@ -159,7 +174,7 @@ function request() {
 													$
 															.ajax({
 																type : "PUT",
-																url : "http://35.246.83.29:9002/updateItem",
+																url : "http://localhost:9002/updateItem",
 																contentType : "application/json",
 																data : updateJSON,
 																dataType : 'json',
@@ -171,8 +186,10 @@ function request() {
 												});
 								a6.appendChild(t6);
 								
-								var a8 = newRow.insertCell(6);
+								//var a8 = newRow.insertCell(6);
+								
 								var t8 = document.createElement('button');
+								//a8.className ="body";
 								t8.className = 'btn btn-danger w-100';
 								var t8a = document.createElement('span');
 								t8a.className = 'glyphicon glyphicon-remove';
@@ -190,7 +207,7 @@ function request() {
 													Http3
 															.open(
 																	"DELETE",
-																	'http://35.246.83.29:9002/deleteRecord/'
+																	'http://localhost:9002/deleteRecord/'
 																			+ document
 																					.getElementById(idName).value);
 													Http3.setRequestHeader(
@@ -202,8 +219,9 @@ function request() {
 													Http3.send();
 													return false;
 												});
-								a8.appendChild(t8);
-								var a7 = newRow.insertCell(7);
+								a6.appendChild(t8);
+								var a7 = newRow.insertCell(6);
+								//a7.className ="body";
 								var t7 = document.createElement('input');
 								t7.type = 'text';
 								t7.value = loop.id;
@@ -293,7 +311,7 @@ function request() {
 										$
 												.ajax({
 													type : "PUT",
-													url : "http://35.246.83.29:9002/updateItem",
+													url : "http://localhost:9002/updateItem",
 													contentType : "application/json",
 													data : updateJSON,
 													dataType : 'json',
@@ -350,7 +368,7 @@ function request() {
 														$
 																.ajax({
 																	type : "PUT",
-																	url : "http://35.246.83.29:9002/updateItem",
+																	url : "http://localhost:9002/updateItem",
 																	contentType : "application/json",
 																	data : updateJSON,
 																	dataType : 'json',
@@ -378,7 +396,7 @@ function request() {
 														Http3
 																.open(
 																		"DELETE",
-																		'http://35.246.83.29:9002/deleteRecord/'
+																		'http://localhost:9002/deleteRecord/'
 																				+ document
 																						.getElementById(idName).value);
 														Http3
@@ -535,7 +553,7 @@ function request() {
 
 					$.ajax({
 						type : "POST",
-						url : "http://35.246.83.29:9002/save",
+						url : "http://localhost:9002/save",
 						contentType : "application/json",
 						data : addNewJSON,
 						dataType : 'json',
