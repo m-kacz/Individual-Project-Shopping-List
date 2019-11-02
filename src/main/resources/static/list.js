@@ -843,7 +843,7 @@ function request() {
 	var start = 0;
 	var totalPrice = parseFloat(start);
 	// var url = "http://35.246.83.29:9002/showall";
-	var url = "http://localhost:9002/showall";
+	var url = "http://35.246.83.29:9002/showall";
 	Http.open("GET", url);
 	var id = 0;
 	Http.onreadystatechange = function(e) {
@@ -968,7 +968,7 @@ function request() {
 								var updateJSON = JSON.stringify(updatedItem);
 								$.ajax({
 									type : "PUT",
-									url : "http://localhost:9002/updateItem",
+									url : "http://35.246.83.29:9002/updateItem",
 									contentType : "application/json",
 									data : updateJSON,
 									dataType : 'json',
@@ -1013,7 +1013,7 @@ function request() {
 								var updateJSON = JSON.stringify(updatedItem);
 								$.ajax({
 									type : "PUT",
-									url : "http://localhost:9002/updateItem",
+									url : "http://35.246.83.29:9002/updateItem",
 									contentType : "application/json",
 									data : updateJSON,
 									dataType : 'json',
@@ -1048,7 +1048,7 @@ function request() {
 												Http3
 														.open(
 																"DELETE",
-																'http://localhost:9002/deleteRecord/'
+																'http://35.246.83.29:9002/deleteRecord/'
 																		+ document
 																				.getElementById(idName).value);
 												Http3.setRequestHeader(
@@ -1157,7 +1157,7 @@ function request() {
 									$
 											.ajax({
 												type : "PUT",
-												url : "http://localhost:9002/updateItem",
+												url : "http://35.246.83.29:9002/updateItem",
 												contentType : "application/json",
 												data : updateJSON,
 												dataType : 'json',
@@ -1211,7 +1211,7 @@ function request() {
 													$
 															.ajax({
 																type : "PUT",
-																url : "http://localhost:9002/updateItem",
+																url : "http://35.246.83.29:9002/updateItem",
 																contentType : "application/json",
 																data : updateJSON,
 																dataType : 'json',
@@ -1247,7 +1247,7 @@ function request() {
 													Http3
 															.open(
 																	"DELETE",
-																	'http://localhost:9002/deleteRecord/'
+																	'http://35.246.83.29:9002/deleteRecord/'
 																			+ document
 																					.getElementById(idName).value);
 													Http3.setRequestHeader(
@@ -1397,7 +1397,7 @@ function request() {
 
 				$.ajax({
 					type : "POST",
-					url : "http://localhost:9002/save",
+					url : "http://35.246.83.29:9002/save",
 					contentType : "application/json",
 					data : addNewJSON,
 					dataType : 'json',
