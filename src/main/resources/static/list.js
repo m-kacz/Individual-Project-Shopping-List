@@ -1605,3 +1605,6 @@ function request() {
 	}
 	Http.send();
 }
+function newList(){
+	alert("This feature has not been added.");
+}
